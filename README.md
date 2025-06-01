@@ -126,8 +126,8 @@ Distribusi untuk tujuan edukasi & keamanan siber.
 
 ## 📬 Kontak
 
-📧 **[your\_email@example.com](mailto:your_email@example.com)**
-📱 Telegram: [@yourhandle](https://t.me/yourhandle)
+📧 **[your\_email@example.com](mailto:sinzoxp@example.com)**
+📱 Telegram: [@yourhandle](https://t.me/avxr00t)
 
 ---
 
