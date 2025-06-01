@@ -108,11 +108,17 @@ application/x-httpd-php
 ## 📌 Rekomendasi Mitigasi
 
 ✅ Validasi **whitelist ekstensi file**
+
 ✅ Pemeriksaan **MIME type di server**
+
 ✅ Verifikasi **magic number file**
+
 ✅ Sanitasi nama file dari karakter spesial
+
 ✅ Simpan file **di luar web root**
+
 ✅ Atur **file permission non-eksekusi**
+
 ✅ Batasi ukuran & scan isi file
 
 ---
