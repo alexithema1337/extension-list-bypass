@@ -132,7 +132,7 @@ Distribusi untuk tujuan edukasi & keamanan siber.
 
 ## 📬 Kontak
 
-📧 **[sinzoxp@gmail.com](mailto:sinzoxp@gmail.com)**
+📧 **[Email: sinzoxp@gmail.com](mailto:sinzoxp@gmail.com)**
 📱 Telegram: [@avxxr00t](https://t.me/avxxr00t)
 
 ---
