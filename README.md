@@ -143,11 +143,3 @@ Distribusi untuk tujuan edukasi & keamanan siber.
 Gunakan teknik ini hanya untuk **penetration testing legal** atau riset di lingkungan yang Anda miliki izin penuh.
 
 ---
-
-## 📎 Preview Markdown
-
-Jika ingin langsung dipasang ke repository GitHub, tinggal simpan dengan nama `README.md`.
-
----
-
-Kalau mau sekalian kubuatin versi markdown file-nya (.md) siap download juga, tinggal beri tahu aja bro! Mau? 🚀🔥
